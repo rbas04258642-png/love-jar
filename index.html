@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Love Jar — نموذج قابل للمشاركة</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1320;--accent:#ff6b81;--muted:#97a0b3}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans Arabic','Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,#071021 0%,#081128 50%,#081020 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 440px;gap:28px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:20px;box-shadow:0 6px 30px rgba(2,6,23,0.7)}
+    header h1{margin:0;font-size:20px}
+    .form-row{display:flex;gap:10px;margin-top:12px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=text],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:14px}
+    textarea{min-height:100px;resize:vertical}
+    button{background:var(--accent);border:0;padding:10px 14px;border-radius:10px;color:white;cursor:pointer;font-weight:600}
+    .jar-stage{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px}
+    .jar{width:260px;height:320px;position:relative}
+    .jar svg{width:100%;height:100%;display:block}
+    .hearts{position:absolute;inset:0;pointer-events:none}
+    .heart{position:absolute;width:28px;height:28px;opacity:0;transform:translateY(60px) scale(0.6);animation:float 3s linear infinite}
+    @keyframes float{0%{opacity:0;transform:translateY(120px) scale(.6)}10%{opacity:1}70%{opacity:0.9;transform:translateY(-30px) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(.8)}}
+    .list{max-height:220px;overflow:auto;margin-top:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    .msg{padding:8px;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));margin-bottom:8px}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    footer{font-size:12px;color:var(--muted);margin-top:8px}
+    @media (max-width:980px){.wrap{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <header>
+        <h1>صُنعي "برطمان الحب" القابل للمشاركة</h1>
+        <p style="color:var(--muted);margin-top:8px">اكتب رسائل، أضف اسم المرسل والمستلم، ثم شارك الرابط.</p>
+      </header>
+
+      <div style="margin-top:12px">
+        <div class="form-row">
+          <div style="flex:1">
+            <label>اسم المرسل</label>
+            <input id="fromName" type="text" placeholder="مثال: علي" />
+          </div>
+          <div style="width:140px">
+            <label>اسم المستقبل</label>
+            <input id="toName" type="text" placeholder="مثال: سارة" />
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label>أضف رسالة قصيرة</label>
+          <textarea id="msgText" placeholder="اكتب شيئًا جميلًا... (أضغط إضافة)"></textarea>
+          <div class="actions">
+            <button id="addBtn">أضف إلى البرطمان</button>
+            <button id="clearBtn" style="background:#334155">مسح الكل</button>
+            <button id="saveDraft" style="background:#0ea5a5">حفظ مسودة</button>
+          </div>
+        </div>
+
+        <div class="list" id="messagesList">
+          <em style="color:var(--muted)">لا توجد رسائل حتى الآن</em>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+          <button id="generate">إنشاء رابط قابل للمشاركة</button>
+          <input id="shareLink" readonly style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:inherit" />
+        </div>
+        <footer>يمكنك فتح الرابط في متصفح آخر لعرض الصفخة التقديمية فقط.</footer>
+      </div>
+    </section>
+
+    <aside class="card jar-stage">
+      <div style="text-align:center">
+        <strong id="previewTitle">إهداء لحبيبي</strong>
+        <div style="color:var(--muted);font-size:13px;margin-top:6px" id="previewSub">لم يتم تعيين الأسماء بعد</div>
+      </div>
+
+      <div class="jar" id="jarContainer">
+        <!-- simple jar SVG -->
+        <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="glass" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06" />
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(0,10)">
+            <path d="M40 10 Q60 -10 100 10 Q140 -10 160 10 Q170 40 160 60 Q150 190 100 210 Q50 190 40 60 Q30 40 40 10 Z" fill="url(#glass)" stroke="rgba(255,255,255,0.06)" />
+            <ellipse cx="100" cy="200" rx="52" ry="12" fill="rgba(0,0,0,0.4)" />
+          </g>
+        </svg>
+        <div class="hearts" id="heartsLayer"></div>
+      </div>
+
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>محتوى البرطمان</strong>
+          <small style="color:var(--muted)">اضغط على بطاقة لنسخها</small>
+        </div>
+        <div id="previewList" style="margin-top:10px;max-height:200px;overflow:auto"></div>
+      </div>
+
+    </aside>
+  </main>
+
+  <script>
+    // helpers
+    const \$ = id => document.getElementById(id);
+    let messages = [];
+
+    function renderList(){
+      const list = $('messagesList');
+      const preview = $('previewList');
+      list.innerHTML=''; preview.innerHTML='';
+      if(messages.length===0){ list.innerHTML='<em style="color:var(--muted)">لا توجد رسائل حتى الآن</em>'; return }
+      messages.forEach((m,i)=>{
+        const div = document.createElement('div'); div.className='msg'; div.textContent = m;
+        div.addEventListener('click', ()=>{ navigator.clipboard?.writeText(m).then(()=>alert('نُسخ النص')); });
+        list.appendChild(div);
+
+        const p = document.createElement('div'); p.className='msg'; p.textContent = m; p.style.cursor='pointer';
+        p.addEventListener('click', ()=>navigator.clipboard?.writeText(m).then(()=>alert('نُسخ للنص')));
+        preview.appendChild(p);
+      });
+      updateHearts();
+    }
+
+    function updatePreviewTitle(){
+      const to = $('toName').value.trim(); const from = $('fromName').value.trim();
+      $('previewTitle').textContent = to? `إلى ${to}` : 'إهداء خاص';
+      $('previewSub').textContent = from? `من ${from}` : 'اضف اسم المرسل ليتظهر هنا';
+    }
+
+    function updateHearts(){
+      const layer = $('heartsLayer'); layer.innerHTML='';
+      // show up to 12 hearts sampled from messages
+      const count = Math.min(12, messages.length || 6);
+      for(let i=0;i<count;i++){
+        const h = document.createElement('div'); h.className='heart';
+        const left = 10 + Math.random()*80; const top = 40 + Math.random()*120;
+        h.style.left = `${left}%`;
+        h.style.top = `${120 - Math.random()*40}px`;
+        h.style.animationDuration = `${2 + Math.random()*2}s`;
+        h.innerHTML = '❤️';
+        layer.appendChild(h);
+      }
+    }
+
+    // add message
+    $('addBtn').addEventListener('click', ()=>{
+      const txt = $('msgText').value.trim(); if(!txt) return alert('أدخل رسالة أولاً');
+      messages.unshift(txt);
+      $('msgText').value=''; renderList();
+    });
+
+    $('clearBtn').addEventListener('click', ()=>{ if(confirm('مسح كل الرسائل؟')){ messages=[]; renderList(); } });
+
+    $('saveDraft').addEventListener('click', ()=>{
+      const state = {from: $('fromName').value, to: $('toName').value, msgs: messages};
+      localStorage.setItem('loveJarDraft', JSON.stringify(state)); alert('تم حفظ المسودة');
+    });
+
+    // generate shareable link (encode data into query param)
+    $('generate').addEventListener('click', ()=>{
+      const state = {from: $('fromName').value, to: $('toName').value, msgs: messages};
+      if(messages.length===0) return alert('أضف رسائل قبل الإنشاء');
+      try{
+        const payload = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+        const url = `${location.origin}${location.pathname}?data=${payload}`;
+        $('shareLink').value = url;
+        // try to copy
+        navigator.clipboard?.writeText(url).then(()=>alert('تم نسخ الرابط')); 
+      }catch(e){ alert('فشل في إنشاء الرابط'); }
+    });
+
+    // load from URL param
+    function loadFromUrl(){
+      const params = new URLSearchParams(location.search);
+      const d = params.get('data');
+      if(!d) return;
+      try{
+        const json = decodeURIComponent(escape(atob(d)));
+        const state = JSON.parse(json);
+        // render readonly view: hide form
+        document.querySelectorAll('.card')[0].style.display='none';
+        document.title = (state.to? state.to + ' — ' : '') + 'إهداء';
+        $('previewTitle').textContent = state.to? `إلى ${state.to}` : 'إهداء خاص';
+        $('previewSub').textContent = state.from? `من ${state.from}` : '';
+        messages = state.msgs || [];
+        // show messages
+        const preview = $('previewList'); preview.innerHTML='';
+        messages.forEach(m=>{
+          const p=document.createElement('div'); p.className='msg'; p.textContent = m; preview.appendChild(p);
+        });
+        updateHearts();
+      }catch(e){ console.error(e); }
+    }
+
+    // load draft if any
+    function loadDraft(){
+      const raw = localStorage.getItem('loveJarDraft'); if(!raw) return;
+      try{ const s = JSON.parse(raw); $('fromName').value = s.from || ''; $('toName').value = s.to || ''; messages = s.msgs || []; renderList(); updatePreviewTitle(); }catch(e){}
+    }
+
+    // wire inputs
+    ['fromName','toName'].forEach(id => $(id).addEventListener('input', updatePreviewTitle));
+
+    // initial
+    loadDraft(); loadFromUrl();
+
+  </script>
+</body>
+</html>
+<footer style="text-align:center; margin-top:12px; font-size:12px; color:var(--muted); line-height:1.5;">
+  يمكنك فتح الرابط في متصفح آخر لعرض الصفحة التقديمية فقط.<br>
+  <span style="font-weight:600;">© 2026 عباس الأسدي — كل الحقوق محفوظة</span><br>
+  تابعني على إنستقرام: <a href="https://instagram.com/j45fl" target="_blank" style="color:var(--accent); text-decoration:none;">@j45fl</a>
+</footer>
