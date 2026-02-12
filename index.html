@@ -3,167 +3,184 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>جرة الحب — Love Jar</title>
+<title>جرة الحب ❤️</title>
 <style>
-:root{
-  --bg:#1a1f2b;
-  --card:#252d3b;
-  --accent:#ff6b81;
-  --muted:#97a0b3;
-  --heart-size:30px;
+:root {
+  --bg: #fff;
+  --card: #ffe6e6;
+  --accent: #ff1a1a;
+  --muted: #a0a0a0;
 }
-html,body{margin:0;height:100%;font-family:'Segoe UI',Roboto,'Noto Sans Arabic',Arial; background:linear-gradient(180deg,#1c2233 0%,#161b28 100%);color:#e6eef8;display:flex;justify-content:center;align-items:center;padding:20px;}
-.wrap{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr 500px;gap:28px;}
-.card{background:var(--card);border-radius:16px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,0.7);}
-header h1{margin:0;font-size:22px;text-align:center;color:var(--accent);}
-.form-row{display:flex;gap:12px;margin-top:15px;}
-label{display:block;font-size:14px;color:var(--muted);margin-bottom:5px;}
-input[type=text],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:inherit;font-size:14px;}
-textarea{min-height:100px;resize:vertical;}
-button{background:var(--accent);border:0;padding:10px 16px;border-radius:10px;color:white;cursor:pointer;font-weight:600;transition:0.2s;}
-button:hover{opacity:0.9;}
-.actions{display:flex;gap:10px;margin-top:10px;}
-.list{max-height:250px;overflow:auto;margin-top:12px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.05);}
-.msg{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;cursor:pointer;transition:0.2s;}
-.msg:hover{background:rgba(255,107,129,0.15);}
-.jar-stage{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;}
-.jar{width:280px;height:350px;position:relative;}
-.jar svg{width:100%;height:100%;}
-.hearts{position:absolute;inset:0;pointer-events:none;}
-.heart{position:absolute;width:var(--heart-size);height:var(--heart-size);opacity:0;transform:translateY(80px) scale(0.6);animation:float 3s linear infinite;}
-@keyframes float{
-0%{opacity:0;transform:translateY(120px) scale(0.6);}
-10%{opacity:1;}
-70%{opacity:0.9;transform:translateY(-30px) scale(1);}
-100%{opacity:0;transform:translateY(-80px) scale(0.8);}
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Arabic', Arial;
+  background: linear-gradient(180deg, #fff0f0 0%, #fff 100%);
+  color: #333;
+  display: flex; justify-content: center; align-items: center;
 }
-footer{margin-top:12px;font-size:13px;color:var(--muted);}
-input[type=file]{margin-top:5px;}
-@media (max-width:1024px){.wrap{grid-template-columns:1fr;}}
+.wrap {
+  max-width: 960px; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  display: flex; flex-direction: column;
+}
+header h1 { margin:0; font-size: 22px; color: var(--accent);}
+header p { font-size: 14px; color: var(--muted); margin-top: 6px;}
+.form-row { display: flex; gap:10px; margin-top:12px;}
+label { font-size: 13px; color: var(--muted); margin-bottom: 4px; display:block;}
+input[type=text], textarea { width:100%; padding:10px; border-radius:8px;
+  border:1px solid rgba(255,0,0,0.2); background: #fff; color:#333; font-size:14px;
+}
+textarea { min-height:80px; resize: vertical;}
+button {
+  background: var(--accent); border:0; padding:10px 14px; border-radius:10px; color:white;
+  cursor:pointer; font-weight:600;
+}
+.actions { display:flex; gap:10px; margin-top:10px;}
+.list { max-height:180px; overflow:auto; margin-top:10px; padding:8px;
+  border-radius:8px; background:rgba(255,0,0,0.05);}
+.msg { padding:8px; border-radius:8px; background: rgba(255,255,255,0.7);
+  margin-bottom:6px; cursor:pointer; display:flex; align-items:center; gap:6px;}
+.jar-stage { display:flex; flex-direction: column; align-items:center; gap:12px; padding:10px;}
+.jar { width:100%; max-width:280px; aspect-ratio: 0.8; position: relative; }
+.jar svg { width:100%; height:100%; display:block; }
+.hearts { position:absolute; inset:0; pointer-events:none; }
+.heart { position:absolute; font-size:24px; opacity:0; transform: translateY(60px) scale(0.6);
+  animation: float 3s linear infinite;
+}
+@keyframes float {
+0% {opacity:0; transform:translateY(120px) scale(.6);}
+10% {opacity:1;}
+70% {opacity:0.9; transform:translateY(-30px) scale(1);}
+100% {opacity:0; transform:translateY(-80px) scale(.8);}
+}
+footer { font-size:12px; color: var(--muted); margin-top:10px; text-align:center;}
+img.msg-img { max-width:50px; max-height:50px; border-radius:6px;}
+@media(max-width:900px){ .wrap{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <main class="wrap">
+  <!-- لوحة التحكم -->
+  <section class="card">
+    <header>
+      <h1>صُنعي "جرة الحب" ❤️</h1>
+      <p>أضف رسائل، صور، وشارك الرابط مع أحبائك.</p>
+    </header>
 
-<!-- الواجهة الرئيسية -->
-<section class="card">
-  <header>
-    <h1>صُنعي "جرة الحب" الخاصة بك</h1>
-    <p style="color:var(--muted);margin-top:6px;text-align:center;">اكتب رسائل، أضف اسم المرسل والمستلم، وأرفق صور إن أحببت.</p>
-  </header>
-
-  <div style="margin-top:12px;">
-    <div class="form-row">
-      <div style="flex:1">
-        <label>اسم المرسل</label>
-        <input id="fromName" type="text" placeholder="مثال: علي" />
+    <div style="margin-top:10px">
+      <div class="form-row">
+        <div style="flex:1">
+          <label>اسم المرسل</label>
+          <input id="fromName" type="text" placeholder="مثال: عباس" />
+        </div>
+        <div style="width:140px">
+          <label>اسم المستقبل</label>
+          <input id="toName" type="text" placeholder="مثال: سارة" />
+        </div>
       </div>
-      <div style="width:150px">
-        <label>اسم المستقبل</label>
-        <input id="toName" type="text" placeholder="مثال: سارة" />
+
+      <div style="margin-top:12px">
+        <label>أضف رسالة قصيرة</label>
+        <textarea id="msgText" placeholder="اكتب شيئًا جميلًا..."></textarea>
+        <input type="file" id="imgFile" accept="image/*" style="margin-top:6px;">
+        <div class="actions">
+          <button id="addBtn">أضف إلى الجرة</button>
+          <button id="clearBtn" style="background:#b0b0b0">مسح الكل</button>
+        </div>
       </div>
-    </div>
 
-    <div style="margin-top:12px;">
-      <label>أضف رسالة قصيرة</label>
-      <textarea id="msgText" placeholder="اكتب شيئًا جميلًا..."></textarea>
-      <input type="file" id="msgImage" accept="image/*"/>
-      <div class="actions">
-        <button id="addBtn">أضف إلى الجرة</button>
-        <button id="clearBtn" style="background:#334155">مسح الكل</button>
-        <button id="saveDraft" style="background:#0ea5a5">حفظ مسودة</button>
+      <div class="list" id="messagesList"><em style="color:var(--muted)">لا توجد رسائل حتى الآن</em></div>
+
+      <div style="margin-top:10px; display:flex; gap:10px; align-items:center;">
+        <button id="generate">إنشاء رابط قابل للمشاركة</button>
+        <input id="shareLink" readonly style="flex:1; padding:8px; border-radius:8px; background:#fff; border:1px solid rgba(255,0,0,0.2);" />
       </div>
+      <footer>توقيع: عباس الأسدي + @j45fl</footer>
+    </div>
+  </section>
+
+  <!-- معاينة الجرة -->
+  <aside class="card jar-stage">
+    <div style="text-align:center">
+      <strong id="previewTitle">إهداء لحبيبي ❤️</strong>
+      <div style="color:var(--muted); font-size:13px; margin-top:6px" id="previewSub">لم يتم تعيين الأسماء بعد</div>
     </div>
 
-    <div class="list" id="messagesList">
-      <em style="color:var(--muted)">لا توجد رسائل حتى الآن</em>
+    <div class="jar" id="jarContainer">
+      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="glass" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(0,10)">
+          <path d="M40 10 Q60 -10 100 10 Q140 -10 160 10 Q170 40 160 60 Q150 190 100 210 Q50 190 40 60 Q30 40 40 10 Z"
+            fill="url(#glass)" stroke="rgba(255,0,0,0.1)" />
+          <ellipse cx="100" cy="200" rx="52" ry="12" fill="rgba(255,0,0,0.1)" />
+        </g>
+      </svg>
+      <div class="hearts" id="heartsLayer"></div>
     </div>
 
-    <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-      <button id="generate">إنشاء رابط قابل للمشاركة</button>
-      <input id="shareLink" readonly style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:inherit" />
+    <div style="width:100%; margin-top:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong>محتوى الجرة</strong>
+        <small style="color:var(--muted)">اضغط على الرسالة لنسخها</small>
+      </div>
+      <div id="previewList" style="margin-top:10px; max-height:200px; overflow:auto"></div>
     </div>
-
-    <footer>توقيع: عباس الأسدي | انستقرام: <a href="https://instagram.com/j45fl" target="_blank" style="color:var(--accent);">@j45fl</a></footer>
-  </div>
-</section>
-
-<!-- عرض الجرة -->
-<aside class="card jar-stage">
-  <div>
-    <strong id="previewTitle">إهداء لحبيبي</strong>
-    <div style="color:var(--muted);font-size:13px;margin-top:6px;" id="previewSub">لم يتم تعيين الأسماء بعد</div>
-  </div>
-
-  <div class="jar" id="jarContainer">
-    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <linearGradient id="glass" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06"/>
-          <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
-        </linearGradient>
-      </defs>
-      <g transform="translate(0,10)">
-        <path d="M40 10 Q60 -10 100 10 Q140 -10 160 10 Q170 40 160 60 Q150 190 100 210 Q50 190 40 60 Q30 40 40 10 Z" fill="url(#glass)" stroke="rgba(255,255,255,0.06)"/>
-        <ellipse cx="100" cy="200" rx="52" ry="12" fill="rgba(0,0,0,0.4)"/>
-      </g>
-    </svg>
-    <div class="hearts" id="heartsLayer"></div>
-  </div>
-
-  <div style="width:100%;margin-top:10px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>محتوى الجرة</strong>
-      <small style="color:var(--muted)">اضغط على بطاقة لنسخها</small>
-    </div>
-    <div id="previewList" style="margin-top:10px;max-height:200px;overflow:auto;"></div>
-  </div>
-</aside>
+  </aside>
+</main>
 
 <script>
+// عناصر
 const $ = id => document.getElementById(id);
 let messages = [];
 
+// عرض الرسائل
 function renderList(){
-  const list = $('messagesList');
-  const preview = $('previewList');
+  const list = $('messagesList'); const preview = $('previewList');
   list.innerHTML=''; preview.innerHTML='';
   if(messages.length===0){ list.innerHTML='<em style="color:var(--muted)">لا توجد رسائل حتى الآن</em>'; return; }
   messages.forEach((m,i)=>{
-    const div = document.createElement('div');
-    div.className='msg';
-    div.innerHTML = m.text + (m.img ? `<br><img src="${m.img}" style="max-width:100%;border-radius:8px;margin-top:5px;">` : '');
-    div.addEventListener('click', ()=>navigator.clipboard?.writeText(m.text).then(()=>alert('نُسخ النص')));
+    const div = document.createElement('div'); div.className='msg';
+    div.innerHTML = `${m.text} ${m.img? '<img src="'+m.img+'" class="msg-img">' : ''}`;
+    div.addEventListener('click', ()=>{ navigator.clipboard?.writeText(m.text).then(()=>alert('نُسخ النص')); });
     list.appendChild(div);
 
-    const p = document.createElement('div');
-    p.className='msg';
-    p.innerHTML = m.text + (m.img ? `<br><img src="${m.img}" style="max-width:100%;border-radius:8px;margin-top:5px;">` : '');
-    p.style.cursor='pointer';
-    p.addEventListener('click', ()=>navigator.clipboard?.writeText(m.text).then(()=>alert('نُسخ للنص')));
+    const p = document.createElement('div'); p.className='msg';
+    p.innerHTML = div.innerHTML;
+    p.addEventListener('click', ()=>navigator.clipboard?.writeText(m.text).then(()=>alert('نُسخ النص')));
     preview.appendChild(p);
   });
   updateHearts();
 }
 
+// تحديث المعاينة
 function updatePreviewTitle(){
-  const to = $('toName').value.trim();
-  const from = $('fromName').value.trim();
-  $('previewTitle').textContent = to? `إلى ${to}` : 'إهداء خاص';
-  $('previewSub').textContent = from? `من ${from}` : 'أضف اسم المرسل ليتظهر هنا';
+  const to = $('toName').value.trim(); const from = $('fromName').value.trim();
+  $('previewTitle').textContent = to? `إلى ${to} ❤️` : 'إهداء خاص ❤️';
+  $('previewSub').textContent = from? `من ${from}` : 'أضف اسم المرسل';
 }
 
+// قلوب متحركة
 function updateHearts(){
   const layer = $('heartsLayer'); layer.innerHTML='';
   const count = Math.min(12, messages.length || 6);
   for(let i=0;i<count;i++){
-    const h = document.createElement('div');
-    h.className='heart';
-    const left = 10 + Math.random()*80;
-    h.style.left = `${left}%`;
-    h.style.top = `${120 - Math.random()*40}px`;
-    h.style.animationDuration = `${2 + Math.random()*2}s`;
-    h.innerHTML = '❤️';
+    const h = document.createElement('div'); h.className='heart';
+    const left = Math.random()*90; const top = Math.random()*120+20;
+    h.style.left = `${left}%`; h.style.top = `${top}px`;
+    h.style.animationDuration = `${2+Math.random()*2}s`;
+    h.style.color = `hsl(${Math.random()*20},100%,50%)`; 
+    h.textContent = '❤️';
     layer.appendChild(h);
   }
 }
@@ -171,39 +188,46 @@ function updateHearts(){
 // إضافة رسالة
 $('addBtn').addEventListener('click', ()=>{
   const txt = $('msgText').value.trim();
+  const file = $('imgFile').files[0];
   if(!txt) return alert('أدخل رسالة أولاً');
-  const imgInput = $('msgImage');
-  if(imgInput.files.length>0){
+  if(file){
     const reader = new FileReader();
     reader.onload = function(e){
-      messages.unshift({text: txt, img: e.target.result});
-      $('msgText').value=''; imgInput.value=''; renderList();
+      messages.unshift({text:txt, img:e.target.result});
+      $('msgText').value=''; $('imgFile').value='';
+      renderList();
     }
-    reader.readAsDataURL(imgInput.files[0]);
+    reader.readAsDataURL(file);
   } else {
-    messages.unshift({text: txt, img: null});
-    $('msgText').value=''; renderList();
+    messages.unshift({text:txt, img:null});
+    $('msgText').value='';
+    renderList();
   }
 });
 
-$('clearBtn').addEventListener('click', ()=>{if(confirm('مسح كل الرسائل؟')){messages=[];renderList();}});
-
-$('saveDraft').addEventListener('click', ()=>{
-  const state = {from: $('fromName').value, to: $('toName').value, msgs: messages};
-  localStorage.setItem('loveJarDraft', JSON.stringify(state)); alert('تم حفظ المسودة');
+// مسح الكل
+$('clearBtn').addEventListener('click', ()=>{
+  if(confirm('مسح كل الرسائل؟')){ messages=[]; renderList(); }
 });
 
+// إنشاء رابط فريد
 $('generate').addEventListener('click', ()=>{
-  const state = {from: $('fromName').value, to: $('toName').value, msgs: messages};
-  if(messages.length===0) return alert('أضف رسائل قبل الإنشاء');
+  if(messages.length===0) return alert('أضف رسائل أولاً');
+  const state = {
+    from: $('fromName').value, 
+    to: $('toName').value, 
+    msgs: messages,
+    ts: Date.now() // لضمان الرابط الفريد
+  };
   try{
     const payload = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
     const url = `${location.origin}${location.pathname}?data=${payload}`;
     $('shareLink').value = url;
-    navigator.clipboard?.writeText(url).then(()=>alert('تم نسخ الرابط'));
-  }catch(e){ alert('فشل في إنشاء الرابط'); }
+    navigator.clipboard?.writeText(url).then(()=>alert('تم نسخ الرابط 🎉'));
+  }catch(e){ alert('فشل إنشاء الرابط'); }
 });
 
+// تحميل من رابط
 function loadFromUrl(){
   const params = new URLSearchParams(location.search);
   const d = params.get('data');
@@ -212,23 +236,18 @@ function loadFromUrl(){
     const json = decodeURIComponent(escape(atob(d)));
     const state = JSON.parse(json);
     document.querySelectorAll('.card')[0].style.display='none';
-    document.title = (state.to? state.to + ' — ' : '') + 'إهداء';
-    $('previewTitle').textContent = state.to? `إلى ${state.to}` : 'إهداء خاص';
+    $('previewTitle').textContent = state.to? `إلى ${state.to} ❤️` : 'إهداء خاص ❤️';
     $('previewSub').textContent = state.from? `من ${state.from}` : '';
     messages = state.msgs || [];
     renderList();
   }catch(e){ console.error(e); }
 }
 
-function loadDraft(){
-  const raw = localStorage.getItem('loveJarDraft'); if(!raw) return;
-  try{ const s = JSON.parse(raw); $('fromName').value = s.from || ''; $('toName').value = s.to || ''; messages = s.msgs || []; renderList(); updatePreviewTitle(); }catch(e){}
-}
+// تفعيل المعاينة عند الكتابة
+['fromName','toName'].forEach(id => $(id).addEventListener('input', updatePreviewTitle));
 
-['fromName','toName'].forEach(id=>$(id).addEventListener('input', updatePreviewTitle));
-
-loadDraft(); loadFromUrl();
-updatePreviewTitle();
+// تحميل من رابط عند الفتح
+loadFromUrl();
 </script>
 </body>
 </html>
